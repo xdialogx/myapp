@@ -2,7 +2,7 @@
 
 namespace tests\models;
 
-use app\models\LoginForm;
+use app\modules\user\models\LoginForm;
 use Codeception\Specify;
 
 class LoginFormTest extends \Codeception\Test\Unit
@@ -16,7 +16,7 @@ class LoginFormTest extends \Codeception\Test\Unit
 
     public function testLoginNoUser()
     {
-        $this->model = new LoginForm([
+        $this->model = new \app\modules\user\models\LoginForm([
             'username' => 'not_existing_username',
             'password' => 'not_existing_password',
         ]);
