@@ -1,6 +1,6 @@
 <?php
 namespace tests\models;
-use app\models\User;
+use app\modules\user\models\User;
 
 class UserTest extends \Codeception\Test\Unit
 {
@@ -23,7 +23,7 @@ class UserTest extends \Codeception\Test\Unit
     public function testFindUserByUsername()
     {
         expect_that($user = User::findByUsername('admin'));
-        expect_not(User::findByUsername('not-admin'));
+        expect_not(\app\modules\user\models\User::findByUsername('not-admin'));
     }
 
     /**

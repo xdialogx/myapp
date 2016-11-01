@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace app\modules\main\models;
 
 use Yii;
 use yii\base\Model;
@@ -28,7 +28,7 @@ class ContactForm extends Model
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly
-            ['verifyCode', 'captcha'],
+            ['verifyCode', 'captcha', 'captchaAction' => '/main/contact/captcha'],
         ];
     }
 
@@ -52,12 +52,15 @@ class ContactForm extends Model
         if ($this->validate()) {
             Yii::$app->mailer->compose()
                 ->setTo($email)
-                ->setFrom([$this->email => $this->name])
+                ->setFrom([Yii::$app->params['supportEmail'] => Yii::$app->name])
+                ->setReplyTo([$this->email => $this->name])
                 ->setSubject($this->subject)
                 ->setTextBody($this->body)
                 ->send();
 
             return true;
+        } else {
+            return false;
         }
         return false;
     }
